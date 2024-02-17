@@ -265,3 +265,20 @@ Abra o arquivo **.chalice/config.json** e adicione a variável **APP_BUCKET_NAME
     }
   }
 }
+
+
+Altere o arquivo de teste **test_app.py** para que ele possa testar a função.
+
+```python
+def test_s3_handler():
+    with Client(app) as client:
+        event = client.events.generate_s3_event(
+            bucket='aws-lambdas-chalice', key='sheet.xls')
+        client.lambda_.invoke('s3_handler', event)
+```
+
+Agora, execute o teste
+
+```sh
+py.test s3trigger/tests/test_app.py -s
+```
