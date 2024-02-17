@@ -218,3 +218,50 @@ chalice new-project
 ```
 
 Em project name, digite **s3trigger** para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, neste caso, utilize o **S3 Event Handler**.
+
+Observe que o arquivo **app.py** foi criado com o seguinte conteúdo
+
+```python
+import os
+
+from chalice import Chalice
+
+app = Chalice(app_name='s3trigger')
+app.debug = True
+
+
+# Set the value of APP_BUCKET_NAME in the .chalice/config.json file.
+S3_BUCKET = os.environ.get('APP_BUCKET_NAME', '')
+
+
+@app.on_s3_event(bucket=S3_BUCKET, events=['s3:ObjectCreated:*'])
+def s3_handler(event):
+    app.log.debug("Received event for bucket: %s, key: %s",
+                  event.bucket, event.key)
+```
+
+Na linha S3_BUCKET, podemos alterar o conteúdo da variável simplemente colocando o nome do bucket ou utilizar *envs*.
+
+**Opção 1** - altere o valor para uma string com o nome do bucket.
+
+```python
+S3_BUCKET = 'aws-lambdas-chalice'
+```
+
+**Opção 2** - utilize *envs*.
+
+Abra o arquivo **.chalice/config.json** e adicione a variável **APP_BUCKET_NAME** com o nome do bucket. Deverá ficar como abaixo.
+
+```json
+{
+  "version": "2.0",
+  "app_name": "s3trigger",
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api",
+      "environment_variables": {
+        "APP_BUCKET_NAME": "aws-lambdas-chalice"
+      }
+    }
+  }
+}

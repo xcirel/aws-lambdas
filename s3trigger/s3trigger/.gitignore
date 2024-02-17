@@ -1,2 +1,28 @@
-.chalice/deployments/
+# Ambiente virtual
 .chalice/venv/
+venv/
+env/
+ENV/
+
+# Diretórios de deployments do Chalice
+.chalice/deployments/
+
+# Python arquivos gerados
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+build/
+dist/
+*.egg-info/
+
+# Arquivos de ambiente
+.env
+
+# Diretórios de desenvolvimento IDE/Editor
+.vscode/
+.idea/
+
+# Node.js dependências
+node_modules/
