@@ -9,7 +9,7 @@ Pré-requisitos
 - Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos)
 - AWS CLI instalado e configurado [How to instal AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
-Após instalar o AWS CLI, execute o comando abaixo para configurar a sua conta
+Após instalar o AWS CLI, execute o comando abaixo para configurar a sua conta.
 
 ```sh
 aws configure
@@ -31,7 +31,7 @@ Deverá ficar assim
 ~/aws-lambdas/invoke/venv
 ```
 
-Acesse esta pasta e digite para criar o virtualenv
+Acesse esta pasta e digite para criar o *virtualenv*.
 
 ```sh
 cd venv
@@ -44,13 +44,13 @@ Para **ativar** o virtualenv digite
 source invoke/bin/activate
 ```
 
-Agora volte para o diretório do projeto ~/aws-lambdas/invoke
+Agora volte para o diretório do projeto **~/aws-lambdas/invoke**.
 
 ```sh
 cd ..
 ```
 
-Agora vamos iniciar o nosso projeto, digite
+Agora vamos criar o nosso projeto, digite o comando abaixo.
 
 ```sh
 chalice new-project
@@ -67,7 +67,7 @@ Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o 
 pip install pytest
 ```
 
-Para fazer o teste, execute o seguinte comando
+Para fazer o teste, execute o seguinte comando.
 
 ```sh
 py.test invoke/tests/test_app.py -s
@@ -75,13 +75,13 @@ py.test invoke/tests/test_app.py -s
 
 Fazendo o deploy - para fazer o deploy, é importante observar que temos que estar dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/invoke/invoke.
 
-Digite o comando
+Digite o comando abaixo.
 
 ```sh
 chalice deploy 
 ```
 
-Você terá uma saída similar a esta abaixo
+Você terá uma saída similar a esta abaixo.
 
 ```sh
 Creating deployment package.
@@ -103,14 +103,14 @@ Vamos criar uma função com disparo programado, para isso, vamos criar um novo 
 mkdir scheduled & mkdir scheduled/venv 
 ```
 
-Acesse esta pasta e digite para criar o virtualenv
+Acesse esta pasta e digite para criar o *virtualenv*.
 
 ```sh
 cd scheduled/venv
 virtualenv scheduled
 ```
 
-Para **ativar** o virtualenv digite
+Para **ativar** o *virtualenv* execute o comando abaixo.
 
 ```sh
 source scheduled/bin/activate
@@ -122,19 +122,19 @@ Agora volte para o diretório do projeto ~/aws-lambdas/scheduled
 cd ..
 ```
 
-Verifique se o chalice já está instalado dentro do virtualenv
+Verifique se o chalice já está instalado dentro do *virtualenv*.
 
 ```sh
 chalice --version
 ```
 
-caso não esteja instalado, instale através do abaixo
+caso não esteja instalado, instale através do abaixo.
 
 ```sh
 pip install chalice
 ```
 
-Agora vamos iniciar o nosso projeto, digite
+Agora crie o projeto.
 
 ```sh
 chalice new-project
@@ -148,7 +148,7 @@ Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o 
 pip install pytest
 ```
 
-Para fazer o teste, execute o seguinte comando
+Para fazer o teste, execute o seguinte comando.
 
 ```sh
 py.test scheduled/tests/test_app.py -s
@@ -192,7 +192,7 @@ Crie o diretório **s3trigger** e dentro dele, o diretório **venv** como temos 
 mkdir s3trigger & mkdir s3trigger/venv 
 ```
 
-Acesse estao diretório **venv** e execute o comando abaixo para criar o virtualenv
+Acesse estao diretório **venv** e execute o comando abaixo para criar o *virtualenv*.
 
 ```sh
 cd s3trigger/venv
@@ -205,7 +205,7 @@ Ative o virtualenv
 source s3trigger/bin/activate
 ```
 
-Agora volte para o diretório do projeto ~/aws-lambdas/s3trigger
+Agora volte para o diretório do projeto ~/aws-lambdas/s3trigger.
 
 ```sh
 cd ..
@@ -219,7 +219,7 @@ chalice new-project
 
 Em project name, digite **s3trigger** para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, neste caso, utilize o **S3 Event Handler**.
 
-Observe que o arquivo **app.py** foi criado com o seguinte conteúdo
+Observe que o arquivo **app.py** foi criado com o seguinte conteúdo.
 
 ```python
 import os
@@ -265,9 +265,11 @@ Abra o arquivo **.chalice/config.json** e adicione a variável **APP_BUCKET_NAME
     }
   }
 }
+```
 
+Recomendo pesquisar por secrets, repository variables, variáveis de ambiente para mais informações, isso é importante para não expor informações sensíveis, você irá usar bastante em ambientes de produção.
 
-Altere o arquivo de teste **test_app.py** para que ele possa testar a função.
+Continuando, agora, altere o arquivo de teste **test_app.py** para que ele possa testar a função.
 
 ```python
 def test_s3_handler():
@@ -282,3 +284,12 @@ Agora, execute o teste
 ```sh
 py.test s3trigger/tests/test_app.py -s
 ```
+
+Para fazer o deploy, basta acessar o diretório com a função Lambda (neste caso, **s3trigger/s3trigger**) e executar o comando abaixo.
+
+```sh
+chalice deploy
+```
+
+Veja que a função foi criada com sucesso.
+![AWS Console](https://i.ibb.co/Vp5LZTT/aws-lambdas-chalice-s3trigger-deployed.png)
