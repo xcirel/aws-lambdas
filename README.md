@@ -180,3 +180,41 @@ def scheduled(event):
 
 Veja
 ![Logs](https://i.ibb.co/ch17TDR/aws-lambdas-chalice-scheduled-deployed-logs.png)
+
+## S3 Trigger
+
+Agora, iremos criar uma função que será acionada quando um arquivo for enviado para um **bucket S3**. Vamos chamar essa função de **s3trigger**.
+
+Acesse sua conta na AWS e crie um bucket S3, no meu caso, criei um chamado **aws-lambdas-chalice**.
+
+Crie o diretório **s3trigger** e dentro dele, o diretório **venv** como temos feito nas funções anteriores.
+```sh
+mkdir s3trigger & mkdir s3trigger/venv 
+```
+
+Acesse estao diretório **venv** e execute o comando abaixo para criar o virtualenv
+
+```sh
+cd s3trigger/venv
+virtualenv s3trigger
+```
+
+Ative o virtualenv
+
+```sh
+source s3trigger/bin/activate
+```
+
+Agora volte para o diretório do projeto ~/aws-lambdas/s3trigger
+
+```sh
+cd ..
+```
+
+Crei o projeto
+
+```sh
+chalice new-project
+```
+
+Em project name, digite **s3trigger** para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, neste caso, utilize o **S3 Event Handler**.
