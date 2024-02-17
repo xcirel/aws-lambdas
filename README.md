@@ -6,7 +6,7 @@ Para mais informações [https://pypi.org/project/chalice/](https://pypi.org/pro
 Iremos utilizar também a biblioteca virtualenv, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/)
 
 Pré-requisitos
-- Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos, Access key e Secret key para configurar no terminal via AWS CLI) [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos, Access key e Secret key configurada no AWS CLI) [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 
 ## Invoke
@@ -27,7 +27,7 @@ Para **ativar** o virtualenv digite
 source invoke/bin/activate
 ```
 
-Agora volte para a pasta "original" ~/aws-lambdas/invoke
+Agora volte para o diretório principal ~/aws-lambdas/invoke
 ```sh
 cd ..
 ```
@@ -51,3 +51,23 @@ Para fazer o teste, execute o seguinte comando
 ```sh
 py.test invoke/tests/test_app.py -s
 ```
+
+Fazendo o deploy - para fazer o deploy, é importante observar que temos que estar dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/invoke/invoke.
+
+Digite o comando
+```sh
+chalice deploy 
+```
+
+Você terá uma saída similar a esta abaixo
+```sh
+Creating deployment package.
+Reusing existing deployment package.
+Creating IAM role: invoke-dev
+Creating lambda function: invoke-dev-invoke
+Resources deployed:
+  - Lambda ARN: arn:aws:lambda:us-east-1:002603181790:function:invoke-dev-invoke
+```
+
+Acesse o console de sua conta na AWS veja que sua função estará lá.
+![AWS Console](https://i.ibb.co/F4X47mh/aws-lambdas-chalice-deploy.png)
