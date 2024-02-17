@@ -1,12 +1,23 @@
 # AWS Lambda
 
-Vamos trabalhar com algumas funções Lambda utilizando o framework da AWS chamado Chalice em um ambiente Linux.
-Para mais informações [https://pypi.org/project/chalice/](https://pypi.org/project/chalice/)
+Neste projeto iremos trabalhar com algumas funções Lambda utilizando o framework da AWS chamado **Chalice** em um ambiente Linux.
+Para mais informações [https://pypi.org/project/chalice/](https://pypi.org/project/chalice/).
 
-Iremos utilizar também a biblioteca virtualenv, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/)
+Como dependências, teremos a biblioteca virtualenv, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/) além da biblioteca pytest para testes [https://pypi.org/project/pytest/](https://pypi.org/project/pytest/).
 
 Pré-requisitos
-- Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos, Access key e Secret key configurada no AWS CLI) [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos)
+- AWS CLI instalado e configurado [How to instal AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+Após instalar o AWS CLI, execute o comando abaixo para configurar a sua conta
+
+```sh
+aws configure
+```
+
+Será solicitado o **Access Key ID**, **Secret Access Key**, **Default region name** e **Default output format**. Preencha com as informações corretas.
+
+Em default region, geralmente utilizamos **us-east-1** e para a saída, **json**.
 
 ## Invoke
 
@@ -146,3 +157,26 @@ py.test scheduled/tests/test_app.py -s
 O resultado deverá ser similar a este
 
 ![Teste](https://i.ibb.co/9YPCVsR/aws-lambdas-chalice-scheduled-test.png)
+
+Pronto, teste efetuado com sucesso, assim sendo, vamos efetuar o **deploy**.
+
+Lembrando de conferir que está dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/scheduled/scheduled.
+
+```sh
+chalice deploy
+```
+
+Acesse o console de sua conta na AWS veja que sua função estará lá.
+![AWS Console](https://i.ibb.co/7R8Bm9J/aws-lambdas-chalice-scheduled-deployed.png)
+
+Além disso, a função será executada a cada 15 minutos, conforme configurado no arquivo **app.py**.
+
+```python
+@app.schedule("cron(*/15 * ? * * *)")
+def scheduled(event):
+    print("Function executed successfully!")
+    return True
+```
+
+Veja
+![Logs](https://i.ibb.co/ch17TDR/aws-lambdas-chalice-scheduled-deployed-logs.png)

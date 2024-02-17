@@ -1,0 +1,22 @@
+{
+  "resources": [
+    {
+      "name": "default-role",
+      "resource_type": "iam_role",
+      "role_arn": "arn:aws:iam::002603189090:role/scheduled-dev",
+      "role_name": "scheduled-dev"
+    },
+    {
+      "name": "scheduled",
+      "resource_type": "lambda_function",
+      "lambda_arn": "arn:aws:lambda:us-east-1:002603189090:function:scheduled-dev-scheduled"
+    },
+    {
+      "name": "scheduled-event",
+      "resource_type": "cloudwatch_event",
+      "rule_name": "scheduled-dev-scheduled-event"
+    }
+  ],
+  "schema_version": "2.0",
+  "backend": "api"
+}
