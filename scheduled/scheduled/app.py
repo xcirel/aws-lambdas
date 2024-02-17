@@ -3,11 +3,8 @@ from chalice import Chalice
 app = Chalice(app_name='scheduled')
 
 
-@app.lambda_function()
-def first_function(event, context):
-    return {'hello': 'world'}
+@app.schedule("cron(*/15 * ? * * *)")
+def scheduled(event):
+    print("Function executed successfully!")
+    return True
 
-
-@app.lambda_function()
-def second_function(event, context):
-    return {'hello': 'world2'}

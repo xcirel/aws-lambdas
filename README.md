@@ -130,4 +130,3 @@ chalice new-project
 ```
 
 Em project name, digite scheduled para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, infelizmente não temos a opção **Scheduled Event** disponível, assim sendo, vamos utilizar o **Lambda Functions only**.
-```sh
