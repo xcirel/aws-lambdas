@@ -1,11 +1,12 @@
-# AWS Lambda
+# AWS Lambda with Chalice
 
 Neste projeto iremos trabalhar com algumas funções Lambda utilizando o framework da AWS chamado **Chalice** em um ambiente Linux.
 Para mais informações [https://pypi.org/project/chalice/](https://pypi.org/project/chalice/).
 
-Como dependências, teremos a biblioteca virtualenv, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/) além da biblioteca pytest para testes [https://pypi.org/project/pytest/](https://pypi.org/project/pytest/).
+Como dependências, teremos a biblioteca **virtualenv**, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/) além da biblioteca **pytest** para testes [https://pypi.org/project/pytest/](https://pypi.org/project/pytest/).
 
-Pré-requisitos
+## Pré-requisitos
+
 - Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos)
 - AWS CLI instalado e configurado [How to instal AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
@@ -17,11 +18,11 @@ aws configure
 
 Será solicitado o **Access Key ID**, **Secret Access Key**, **Default region name** e **Default output format**. Preencha com as informações corretas.
 
-Em default region, geralmente utilizamos **us-east-1** e para a saída, **json**.
+Em default region, geralmente utilizamos **us-east-1** e para a saída, podemos utilizar o **json**.
 
 ## Invoke
 
-Vamos criar uma função por invocação, ou seja, ela será chamada por um evento específico, como um endpoint HTTP, por exemplo.
+Neste exemplo, iremos criar uma função por invocação, ou seja, ela será chamada por um evento específico, como um endpoint HTTP, por exemplo.
 
 Crie um diretório com o nome **invoke** e dentro dele crie um outro diretório para o *virtualenv*, vamos chamá-lo de **venv**.
 
@@ -56,7 +57,7 @@ Agora vamos criar o nosso projeto, digite o comando abaixo.
 chalice new-project
 ```
 
-Em project name, digite invoke para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, selecione a opção **Lambda Functions only**. Você receberá uma saída como
+Em project name, digite **invoke** para mantermos o mesmo padrão. Após isso, um prompt com algumas opções será exibido, selecione a opção **Lambda Functions only**. Você receberá uma saída como
 ```sh
 Your project has been generated in ./invoke
 ```
@@ -64,13 +65,27 @@ Your project has been generated in ./invoke
 Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o chalice (agora estamos em um virtual env, lembra...?)
 
 ```sh
-pip install pytest
+pip install pytest & pip install chalice
 ```
 
 Para fazer o teste, execute o seguinte comando.
 
 ```sh
 py.test invoke/tests/test_app.py -s
+```
+Você recebera uma output similar a este.
+
+```sh
+====================================================== test session starts =======================================================
+platform linux -- Python 3.10.12, pytest-8.0.1, pluggy-1.4.0
+rootdir: /home/aws-lambdas/invoke
+collected 1 item                                                                                                                 
+
+invoke/tests/test_app.py YourName
+30
+.
+
+======================================================= 1 passed in 0.18s ========================================================
 ```
 
 Fazendo o deploy - para fazer o deploy, é importante observar que temos que estar dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/invoke/invoke.
