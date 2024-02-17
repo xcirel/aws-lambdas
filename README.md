@@ -130,3 +130,19 @@ chalice new-project
 ```
 
 Em project name, digite scheduled para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, infelizmente não temos a opção **Scheduled Event** disponível, assim sendo, vamos utilizar o **Lambda Functions only**.
+
+Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o chalice (agora estamos em um virtual env, lembra...?)
+
+```sh
+pip install pytest
+```
+
+Para fazer o teste, execute o seguinte comando
+
+```sh
+py.test scheduled/tests/test_app.py -s
+```
+
+O resultado deverá ser similar a este
+
+![Teste](https://i.ibb.co/9YPCVsR/aws-lambdas-chalice-scheduled-test.png)
