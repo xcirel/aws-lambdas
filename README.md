@@ -293,3 +293,6 @@ chalice deploy
 
 Veja que a função foi criada com sucesso.
 ![AWS Console](https://i.ibb.co/Vp5LZTT/aws-lambdas-chalice-s3trigger-deployed.png)
+
+Observe agora o que ocorreu quandofoi feito o upload de um arquivo para o bucket **aws-lambdas-chalice**.
+![Logs](https://i.ibb.co/xjBf2nM/aws-lambdas-chalice-s3trigger-event.png) 
