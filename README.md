@@ -1,11 +1,11 @@
-# AWS Lambda with Chalice
+# AWS Lambda with Chalice - Tutorial
 
 Neste projeto iremos trabalhar com algumas funções Lambda utilizando o framework da AWS chamado **Chalice** em um ambiente Linux.
 Para mais informações [https://pypi.org/project/chalice/](https://pypi.org/project/chalice/).
 
 Como dependências, teremos a biblioteca **virtualenv**, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/) além da biblioteca **pytest** para testes [https://pypi.org/project/pytest/](https://pypi.org/project/pytest/).
 
-## Pré-requisitos
+***Pré-requisitos***
 
 - Conta na AWS devidamente configurada (usuário no IAM com permissões para a criação de recursos)
 - AWS CLI instalado e configurado [How to instal AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
@@ -88,7 +88,7 @@ invoke/tests/test_app.py YourName
 ======================================================= 1 passed in 0.18s ========================================================
 ```
 
-Fazendo o deploy - para fazer o deploy, é importante observar que temos que estar dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/invoke/invoke.
+Fazendo o **deploy** - para fazer o deploy, é importante observar que temos que estar dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/invoke/invoke.
 
 Digite o comando abaixo.
 
@@ -112,13 +112,13 @@ Acesse o console de sua conta na AWS veja que sua função estará lá.
 
 ## Scheduled
 
-Vamos criar uma função com disparo programado, para isso, vamos criar um novo diretório chamado **scheduled** e também o diretório para o *virtualenv* chamado **venv**.
+Agora, vamos criar uma função com disparo programado, para isso, será necessário criar um novo diretório chamado **scheduled** e também o diretório para o *virtualenv* chamado **venv**.
 
 ```sh
 mkdir scheduled & mkdir scheduled/venv 
 ```
 
-Acesse esta pasta e digite para criar o *virtualenv*.
+Acesse o diretório do projeto e crie o *virtualenv*.
 
 ```sh
 cd scheduled/venv
@@ -143,7 +143,7 @@ Verifique se o chalice já está instalado dentro do *virtualenv*.
 chalice --version
 ```
 
-caso não esteja instalado, instale através do abaixo.
+caso não esteja instalado, instale através do comando abaixo.
 
 ```sh
 pip install chalice
@@ -155,7 +155,7 @@ Agora crie o projeto.
 chalice new-project
 ```
 
-Em project name, digite scheduled para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, infelizmente não temos a opção **Scheduled Event** disponível, assim sendo, vamos utilizar o **Lambda Functions only**.
+Em project name, digite **scheduled** para mantermos o mesmo padrão. Após isso, um prompt com algumas opções será exibido, infelizmente não temos a opção **Scheduled Event** disponível, assim sendo, vamos utilizar o **Lambda Functions only** e fazer alguns ajustes no código.
 
 Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o chalice (agora estamos em um virtual env, lembra...?)
 
@@ -175,7 +175,7 @@ O resultado deverá ser similar a este
 
 Pronto, teste efetuado com sucesso, assim sendo, vamos efetuar o **deploy**.
 
-Lembrando de conferir que está dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/scheduled/scheduled.
+Lembrando de conferir se está dentro do diretório da função Lambda, neste caso, ~/aws-lambdas/scheduled/scheduled.
 
 ```sh
 chalice deploy
@@ -193,28 +193,29 @@ def scheduled(event):
     return True
 ```
 
-Veja
+Veja os logs no **CloudWatch**.
 ![Logs](https://i.ibb.co/ch17TDR/aws-lambdas-chalice-scheduled-deployed-logs.png)
 
 ## S3 Trigger
 
-Agora, iremos criar uma função que será acionada quando um arquivo for enviado para um **bucket S3**. Vamos chamar essa função de **s3trigger**.
+Vamos para mais uma função, iremos criar uma função que será acionada quando um arquivo for enviado para um **bucket S3**. Chamaremos esta função de **s3trigger**.
 
-Acesse sua conta na AWS e crie um bucket S3, no meu caso, criei um chamado **aws-lambdas-chalice**.
+Acesse o console da sua conta na AWS e crie um bucket S3, no meu caso, criei um chamado **aws-lambdas-chalice**.
 
 Crie o diretório **s3trigger** e dentro dele, o diretório **venv** como temos feito nas funções anteriores.
+
 ```sh
 mkdir s3trigger & mkdir s3trigger/venv 
 ```
 
-Acesse estao diretório **venv** e execute o comando abaixo para criar o *virtualenv*.
+Acesse o diretório **venv** e execute o comando abaixo para criar o *virtualenv*.
 
 ```sh
 cd s3trigger/venv
 virtualenv s3trigger
 ```
 
-Ative o virtualenv
+Ative o *virtualenv*
 
 ```sh
 source s3trigger/bin/activate
@@ -232,7 +233,7 @@ Crei o projeto
 chalice new-project
 ```
 
-Em project name, digite **s3trigger** para mantermos o mesmo padrão. Após isso, um prompt com alguma opções será exibido, neste caso, utilize o **S3 Event Handler**.
+Em project name, digite **s3trigger** para mantermos o mesmo padrão. Após isso, um prompt com algumas opções será exibido, neste caso, utilize o **S3 Event Handler**.
 
 Observe que o arquivo **app.py** foi criado com o seguinte conteúdo.
 
@@ -255,7 +256,7 @@ def s3_handler(event):
                   event.bucket, event.key)
 ```
 
-Na linha S3_BUCKET, podemos alterar o conteúdo da variável simplemente colocando o nome do bucket ou utilizar *envs*.
+Na linha referente ao bucket (S3_BUCKET... ...), podemos alterar o conteúdo da variável simplesmente colocando o nome do bucket ou utilizar *envs*.
 
 **Opção 1** - altere o valor para uma string com o nome do bucket.
 
@@ -282,9 +283,9 @@ Abra o arquivo **.chalice/config.json** e adicione a variável **APP_BUCKET_NAME
 }
 ```
 
-Recomendo pesquisar por secrets, repository variables, variáveis de ambiente para mais informações, isso é importante para não expor informações sensíveis, você irá usar bastante em ambientes de produção.
+Sugestão: Recomendo pesquisar por secrets repository, repository variables, variáveis de ambiente para mais informações, isso é importante para não expor informações sensíveis, você irá usar bastante em ambientes de produção.
 
-Continuando, agora, altere o arquivo de teste **test_app.py** para que ele possa testar a função.
+continuando, agora, altere o arquivo de teste **test_app.py** para que possamos testar a função.
 
 ```python
 def test_s3_handler():
@@ -309,5 +310,5 @@ chalice deploy
 Veja que a função foi criada com sucesso.
 ![AWS Console](https://i.ibb.co/Vp5LZTT/aws-lambdas-chalice-s3trigger-deployed.png)
 
-Observe agora o que ocorreu quandofoi feito o upload de um arquivo para o bucket **aws-lambdas-chalice**.
+Observe agora o que ocorreu quando foi efetuado o upload de um arquivo para o bucket **aws-lambdas-chalice**.
 ![Logs](https://i.ibb.co/xjBf2nM/aws-lambdas-chalice-s3trigger-event.png) 
