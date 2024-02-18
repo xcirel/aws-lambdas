@@ -1,9 +1,13 @@
 # AWS Lambda with Chalice - Tutorial
 
-Neste projeto iremos trabalhar com algumas funções Lambda utilizando o framework da AWS chamado **Chalice** em um ambiente Linux.
+Neste projeto iremos trabalhar com algumas funções **Lambda** utilizando o framework da AWS chamado **Chalice** em um ambiente Linux.
 Para mais informações [https://pypi.org/project/chalice/](https://pypi.org/project/chalice/).
 
 Como dependências, teremos a biblioteca **virtualenv**, acesse o link para mais informações [https://pypi.org/project/virtualenv/](https://pypi.org/project/virtualenv/) além da biblioteca **pytest** para testes [https://pypi.org/project/pytest/](https://pypi.org/project/pytest/).
+
+Versões utilizadas neste projeto
+
+Python 3.10.12, chalice 1.30.0, pytest 8.0.1, aws-cli/2.15.10
 
 ***Pré-requisitos***
 
@@ -22,7 +26,7 @@ Em default region, geralmente utilizamos **us-east-1** e para a saída, podemos 
 
 ## Invoke
 
-Neste exemplo, iremos criar uma função por invocação, ou seja, ela será chamada por um evento específico, como um endpoint HTTP, por exemplo.
+Neste primeiro exemplo, iremos criar uma função por invocação, ou seja, ela será chamada por um evento específico, como um endpoint HTTP, por exemplo.
 
 Crie um diretório com o nome **invoke** e dentro dele crie um outro diretório para o *virtualenv*, vamos chamá-lo de **venv**.
 
@@ -193,7 +197,7 @@ def scheduled(event):
     return True
 ```
 
-Veja os logs no **CloudWatch**.
+Confira os logs no **Amazon CloudWatch**.
 ![Logs](https://i.ibb.co/ch17TDR/aws-lambdas-chalice-scheduled-deployed-logs.png)
 
 ## S3 Trigger

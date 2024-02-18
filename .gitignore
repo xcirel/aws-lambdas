@@ -1,3 +1,13 @@
+# Global
+invoke/invoke/.chalice
+scheduled/scheduled/.chalice
+s3trigger/s3trigger/.chalice
+
+invoke/invoke/__pycache__
+scheduled/scheduled/__pycache__
+s3trigger/s3trigger/__pycache__
+
+
 # Ambiente virtual
 .chalice/venv/
 venv/
