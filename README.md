@@ -419,7 +419,7 @@ Você também pode acessar o endpoint através do seu navegador.
 
 ![Browser](https://i.ibb.co/y86DHTf/aws-lambdas-chalice-endpoint-deployed-testing-browser.png)
 
-Não se esqueça que você pode conferir os logs no **Amazon CloudWatch**. Basta clicar em na opção **Monitor** e depois no botão **View CloudWatch** logs.
+Não se esqueça que você pode conferir os logs no **Amazon CloudWatch**, basta clicar na opção **Monitor** e depois no botão **View CloudWatch** logs. Veja na imagem abaixo.
 
 ![Link to access logs](https://i.ibb.co/ZcmkcfL/aws-lambdas-chalice-endpoint-access-logs.png)
 
