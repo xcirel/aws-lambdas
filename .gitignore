@@ -2,10 +2,12 @@
 invoke/invoke/.chalice
 scheduled/scheduled/.chalice
 s3trigger/s3trigger/.chalice
+endpoint/endpoint/.chalice
 
 invoke/invoke/__pycache__
 scheduled/scheduled/__pycache__
 s3trigger/s3trigger/__pycache__
+endpoint/endpoint/__pycache__
 
 
 # Ambiente virtual
