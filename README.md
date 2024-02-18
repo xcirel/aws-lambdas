@@ -26,7 +26,7 @@ Em default region, geralmente utilizamos **us-east-1** e para a saída, podemos 
 
 ## Invoke
 
-Neste primeiro exemplo, iremos criar uma função por invocação, ou seja, ela será chamada por um evento específico, como um endpoint HTTP, por exemplo.
+Neste primeiro exemplo, iremos criar uma função por invocação, ou seja, ela será chamada por um evento específico.
 
 Crie um diretório com o nome **invoke** e dentro dele crie um outro diretório para o *virtualenv*, vamos chamá-lo de **venv**.
 
@@ -36,7 +36,7 @@ Deverá ficar assim
 ~/aws-lambdas/invoke/venv
 ```
 
-Acesse esta pasta e digite para criar o *virtualenv*.
+Acesse o diretório e execute o comando abaixo para criar o *virtualenv*.
 
 ```sh
 cd venv
@@ -66,7 +66,7 @@ Em project name, digite **invoke** para mantermos o mesmo padrão. Após isso, u
 Your project has been generated in ./invoke
 ```
 
-Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o chalice (agora estamos em um virtual env, lembra...?)
+Vamos instalar a lib **pytest** para fazer nossos testes, aproveite e instale o **chalice** (agora estamos em um virtual env, lembra...?)
 
 ```sh
 pip install pytest & pip install chalice
@@ -77,6 +77,7 @@ Para fazer o teste, execute o seguinte comando.
 ```sh
 py.test invoke/tests/test_app.py -s
 ```
+
 Você recebera uma output similar a este.
 
 ```sh
@@ -315,4 +316,111 @@ Veja que a função foi criada com sucesso.
 ![AWS Console](https://i.ibb.co/Vp5LZTT/aws-lambdas-chalice-s3trigger-deployed.png)
 
 Observe agora o que ocorreu quando foi efetuado o upload de um arquivo para o bucket **aws-lambdas-chalice**.
-![Logs](https://i.ibb.co/xjBf2nM/aws-lambdas-chalice-s3trigger-event.png) 
+![Logs](https://i.ibb.co/xjBf2nM/aws-lambdas-chalice-s3trigger-event.png)
+
+
+## Endpoint - API Gateway
+
+Neste quarto exemplo, iremos criar uma função que será acionada por um endpoint HTTP, chamaremos esta função de **endpoint**.
+
+Crie um diretório com o nome **endpoint** e dentro dele crie um outro diretório para o *virtualenv*, vamos chamá-lo de **venv**.
+
+```sh
+mkdir endpoint & mkdir endpoint/venv 
+```
+
+Acesse este diretório e execute o comando abaixo para criar o *virtualenv*.
+
+```sh
+cd venv
+virtualenv endpoint
+```
+
+Para **ativar** o virtualenv digite
+
+```sh
+source endpoint/bin/activate
+```
+
+Agora volte para o diretório do projeto **~/aws-lambdas/endpoint**.
+
+```sh
+cd ..
+```
+
+Agora vamos criar o nosso projeto, digite o comando abaixo.
+
+```sh
+chalice new-project
+```
+
+Em project name, digite **endpoint** para mantermos o mesmo padrão. Após isso, um prompt com algumas opções será exibido, selecione a opção **REST API**.
+
+Intale o a lib **pytest** para fazer nossos testes, aproveite e instale o **chalice**.
+
+```sh
+pip install pytest & pip install chalice
+```
+
+Para fazer o teste, execute o seguinte comando.
+
+```sh
+py.test endpoint/tests/test_app.py -s
+```
+
+Output.
+
+```sh
+====================================================== test session starts =======================================================
+platform linux -- Python 3.10.12, pytest-8.0.1, pluggy-1.4.0
+rootdir: /home/username/aws-lambdas/endpoint
+collected 1 item                                                                                                                 
+
+endpoint/tests/test_app.py 54321
+.
+
+======================================================= 1 passed in 0.18s ========================================================
+```
+Uma vez que o teste foi efetuado com sucesso, vamos fazer o **deploy**.
+
+Para fazer o deploy, basta acessar o diretório com a função **Lambda** (neste caso, **endpoint/endpoint**) e executar o comando abaixo.
+
+```sh
+chalice deploy
+```
+
+A output do comando será similar a esta.
+
+```sh
+Creating deployment package.
+Creating IAM role: endpoint-dev
+Creating lambda function: endpoint-dev
+Creating Rest API
+Resources deployed:
+  - Lambda ARN: arn:aws:lambda:us-east-1:002603187090:function:endpoint-dev
+  - Rest API URL: https://pa11tf7p86.execute-api.us-east-1.amazonaws.com/api/
+
+```
+
+Agora, acesse o console de sua conta na AWS veja que a função foi criada.
+
+![AWS Console](https://i.ibb.co/qDsbXNF/aws-lambdas-chalice-endpoint-deployed.png)
+
+![AWS Console](https://i.ibb.co/N2Cj1T7/aws-lambdas-chalice-endpoint-deployed-2.png)
+
+Você pode testar o endpoint através do comando **curl**, o **postman**, ou qualquer outra ferramenta de sua preferência.
+
+```sh
+curl https://pa11tf7p86.execute-api.us-east-1.amazonaws.com/api/id/54321
+```
+![curl](https://i.ibb.co/C2LXytP/aws-lambdas-chalice-endpoint-deployed-testing-curl.png)
+
+Você também pode acessar o endpoint através do seu navegador.
+
+![Browser](https://i.ibb.co/y86DHTf/aws-lambdas-chalice-endpoint-deployed-testing-browser.png)
+
+Não se esqueça que você pode conferir os logs no **Amazon CloudWatch**. Basta clicar em na opção **Monitor** e depois no botão **View CloudWatch** logs.
+
+![Link to access logs](https://i.ibb.co/ZcmkcfL/aws-lambdas-chalice-endpoint-access-logs.png)
+
+É isso, espero que tenham gostado do tutorial, até a próxima!
